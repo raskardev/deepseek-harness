@@ -17,6 +17,8 @@ This checkout is a personal fork of [deepseek-ai/deepseek-harness](https://githu
 | [FORK/sync.md](FORK/sync.md) | `upstream` remote, merge policy, conflict hot spots, generated-artifact checklist |
 | [FORK/ci.md](FORK/ci.md) | Verdict for each GitHub workflow when it runs on the fork |
 | [FORK/compatibility.md](FORK/compatibility.md) | Session and storage compatibility, versioning, publishing, and app identity |
+| [FORK/customizing.md](FORK/customizing.md) | Task → owner doc map, patch-row recipes, credentials and environment, `%USERPROFILE%\.dsh` layout |
+| [FORK/privacy.md](FORK/privacy.md) | Every channel that sends data off the machine and how to turn it off |
 
 ## Local environment prerequisites
 
