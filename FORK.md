@@ -8,7 +8,7 @@ This checkout is a personal fork of [deepseek-ai/deepseek-harness](https://githu
 2. **Never bump released persistence versions.** `SESSION_FORMAT_VERSION`, the SQLite `*_SCHEMA_VERSION` constants, and committed persistence generations belong to upstream. See [FORK/compatibility.md](FORK/compatibility.md).
 3. **Never publish under `@deepseek-ai`.** Run the fork from source or rescope it first. See [FORK/compatibility.md](FORK/compatibility.md#publishing-and-identity).
 4. **Keep GitHub Actions disabled** unless you have patched the workflows in [FORK/ci.md](FORK/ci.md).
-5. **Fork docs live here.** `FORK.md` and `FORK/*.md` are outside every documentation gate (translation pairing, word budgets, markdown wrap and link checks, website manifest), so they need no `.zh.md` pair or `.i18n.yaml` sidecar. Do not name a file in `FORK/` `README.md`: the translation-pairing gate matches `README.md` at any depth.
+5. **Fork docs live here.** `FORK.md` and `FORK/*.md` are outside the translation-pairing, word-budget, markdown wrap and link, and website-manifest gates, so they need no `.zh.md` pair or `.i18n.yaml` sidecar. `verify-repository-references` (part of `pnpm run test:docs`) still scans them: cite upstream by release version, not by commit hash. Do not name a file in `FORK/` `README.md`: the translation-pairing gate matches `README.md` at any depth.
 
 ## Contents
 
@@ -19,6 +19,7 @@ This checkout is a personal fork of [deepseek-ai/deepseek-harness](https://githu
 | [FORK/compatibility.md](FORK/compatibility.md) | Session and storage compatibility, versioning, publishing, and app identity |
 | [FORK/customizing.md](FORK/customizing.md) | Task → owner doc map, patch-row recipes, credentials and environment, `%USERPROFILE%\.dsh` layout |
 | [FORK/extending.md](FORK/extending.md) | Choosing an extension mechanism, out-of-tree plugin modes, when an LLM adapter is needed, Web client plugins |
+| [FORK/windows.md](FORK/windows.md) | Native Windows setup, what runs natively vs Git Bash or WSL 2, Windows runtime defaults |
 | [FORK/privacy.md](FORK/privacy.md) | Every channel that sends data off the machine and how to turn it off |
 
 ## Local environment prerequisites

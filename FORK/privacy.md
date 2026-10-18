@@ -1,6 +1,6 @@
 # What leaves the machine
 
-The base bundle sends data to DeepSeek beyond the model conversation itself, some of it **on by default**. This page lists every channel found in upstream `687f282e86`, what it sends, and how to turn it off. Rows are in `packages/bundle/base/cordis.patch.yml` (base) and `packages/bundle/web-app/cordis.patch.yml` (web-app); [customizing.md](customizing.md#patch-rows) explains the patch grammar.
+The base bundle sends data to DeepSeek beyond the model conversation itself, some of it **on by default**. This page lists every channel found in upstream release 0.2.1-rc.2, what it sends, and how to turn it off. Rows are in `packages/bundle/base/cordis.patch.yml` (base) and `packages/bundle/web-app/cordis.patch.yml` (web-app); [customizing.md](customizing.md#patch-rows) explains the patch grammar.
 
 ## Channels
 
