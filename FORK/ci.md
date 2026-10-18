@@ -14,7 +14,7 @@ Local checks remain the verification source for fork work; see `.agents/skills/d
 
 ## Workflow verdicts
 
-Triggers and runners as of upstream `687f282e86`. "Stuck" means the job requests a runner label the fork cannot provide.
+Triggers and runners as of upstream release 0.2.1-rc.2. "Stuck" means the job requests a runner label the fork cannot provide.
 
 | Workflow | Trigger | Verdict on the fork | Action if Actions is enabled |
 | --- | --- | --- | --- |

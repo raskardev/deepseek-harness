@@ -17,7 +17,7 @@ This page routes each customization task to the upstream document that owns it a
 | Slash commands | [docs/subsystems/commands.md](../docs/subsystems/commands.md), [packages/interaction/commands/README.md](../packages/interaction/commands/README.md) |
 | Client theme | [packages/client/ui-theme/README.md](../packages/client/ui-theme/README.md) |
 | Plugins from the market, proxies, scheduled follow-ups | [docs/user/guide/plugin-market.md](../docs/user/guide/plugin-market.md), [network-proxy.md](../docs/user/guide/network-proxy.md), [schedule.md](../docs/user/guide/schedule.md) |
-| Writing plugins | [docs/user/develop/basic/index.md](../docs/user/develop/basic/index.md), [publish.md](../docs/user/develop/basic/publish.md) |
+| Writing plugins | [extending.md](extending.md) (which mechanism, how to load it); [docs/user/develop/basic/index.md](../docs/user/develop/basic/index.md), [publish.md](../docs/user/develop/basic/publish.md) |
 | Every plugin's config fields | [docs/config-catalog.md](../docs/config-catalog.md); `pnpm dsh web --dump-config-schema` |
 | What leaves the machine, and how to stop it | [privacy.md](privacy.md) |
 
