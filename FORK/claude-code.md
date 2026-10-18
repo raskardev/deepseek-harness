@@ -27,9 +27,11 @@ Skills written for the fork itself belong in `.agents/skills/fork-<name>/` (they
 
 `.claude/settings.json` is gitignored in this repository (`.gitignore`), so a project-level permission file stays local and never conflicts with upstream. The fork checkout uses one that:
 
-- **allows** read-only git commands and the bounded checks: `typecheck`, `lint`, `test:docs`, `doc-sync`, `build`, `build:artifacts`, `build:check`, `build:native-system`, `hygiene`, `duplication`, `change-scope`, `verify-*`, and path-filtered `vitest run <path>` / `run test <path>`;
+- **allows** read-only git commands (`status`, `diff`, `log`, `show`, `ls-files`, `rev-parse`, `branch --list`, `branch --show-current`, `worktree list`, `remote -v`; never `git branch` with other flags, which can delete or rename branches) and the bounded checks: `typecheck`, `lint`, `test:docs`, `doc-sync`, `build`, `build:artifacts`, `build:check`, `build:native-system`, `hygiene`, `duplication`, `change-scope`, `verify-*`, and path-filtered `vitest run <path>` / `run test <path>`;
 - **asks** before the full suite (`run test` and `exec vitest run` with no path), `test:coverage`, `test:e2e*` and `test:snapshot:record` (real API calls, paid with your key), `test:expected:refresh`, `pnpm install`, and `pnpm dsh` (starts the product);
-- **denies** reading `.env`, `.env.*`, `%USERPROFILE%\.dsh\.env`, and `.credentials.yaml` files.
+- **denies** reading `.env` and `.env.*` files at any depth, `%USERPROFILE%\.dsh\.env`, and `.credentials.yaml` files.
+
+Allowing a check also allows the code it runs: `vitest run <path>` executes whatever test file the agent points it at, including one it just wrote, and `build` runs repository scripts. The allowlist removes prompts for routine verification; it is not a sandbox. Keep Claude Code's own permission mode at its default (ask) for edits outside the repository.
 
 Each rule exists four times: for the `Bash` and `PowerShell` tools, and with `pnpm` and `corepack pnpm`, because [windows.md](windows.md) explains that `pnpm` may only be reachable through Corepack. A shortened excerpt:
 
@@ -49,7 +51,7 @@ Each rule exists four times: for the `Bash` and `PowerShell` tools, and with `pn
       "Bash(pnpm dsh*)"
     ],
     "deny": [
-      "Read(./.env)",
+      "Read(**/.env)",
       "Read(~/.dsh/.credentials.yaml)"
     ]
   }

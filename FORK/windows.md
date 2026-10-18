@@ -4,7 +4,7 @@ Upstream develops on macOS and Linux and validates Windows in CI. This page reco
 
 ## One-time setup
 
-1. Enable Developer Mode and run `git config core.symlinks true` before cloning or repairing the checkout; see [FORK.md](../FORK.md#local-environment-prerequisites). CI enables Developer Mode the same way.
+1. Enable Developer Mode and run `git config core.symlinks true` before cloning or repairing the checkout; see [FORK.md](../FORK.md#local-environment-prerequisites). CI enables Developer Mode the same way. The same Windows toggle also allows installing apps from any source, including loose files; that is the cost of native symlinks, so install only packages you trust while it is on.
 2. Run `corepack enable` once, or prefix every command with `corepack` (`corepack pnpm install`). Without it, `pnpm` is not on `PATH` even though `package.json` pins `pnpm@11.28.5`, and `git push` fails because the Lefthook pre-push hook calls `pnpm` directly (`pnpm: command not found`). Do not skip the hook; `corepack enable --install-directory <dir> pnpm` with `<dir>` added to `PATH` also works without elevation. `corepack enable` writes shims next to the active `node.exe`: with a version manager such as fnm that needs no elevation, while a Node install under `Program Files` needs an elevated shell.
 3. Install PowerShell 7 (`pwsh`). The `dsh` shell tool uses it on Windows (see [Runtime defaults](#runtime-defaults-on-windows)); Windows PowerShell 5.1 is not a substitute.
 4. If git reports "Filename too long", run `git config --global core.longpaths true`. No upstream doc mentions it; worktrees under `.claude\worktrees\` lengthen every path.

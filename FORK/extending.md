@@ -39,6 +39,8 @@ Facts that apply to every mode:
 - **Version range.** Set `"engines": { "dsh": ">=0.2.0 <0.3.0" }` (match the fork's version line); profile boot refuses a bundle outside its range. The check includes prereleases, so `0.2.1-rc.2` satisfies that range.
 - **Verify without booting.** `pnpm dsh --profile <name> --dump-config` shows a `# == <package>` layer for each installed bundle.
 - **Row config replaces.** A bundle row that overrides a base row restates the whole `config`; see [customizing.md](customizing.md#patch-rows).
+- **Plugins run with your full user rights.** A plugin executes inside the `dsh` process, outside the sandbox that confines the agent's shell commands, and can read credentials in `%USERPROFILE%\.dsh`. Load only code you have read.
+- **`allowBuilds` runs code at install time.** Allowlisting a git package's `prepare` script lets it execute on your machine during `dsh plugin add`, outside any sandbox. Allow only sources you trust and pin a full commit (`#<sha>`) so a later push cannot change what runs.
 - **Never publish under `@deepseek-ai`.** Use your own scope or an unscoped `dsh-*` name ([compatibility.md](compatibility.md#publishing-and-identity)).
 
 ## Do you need an LLM adapter?
