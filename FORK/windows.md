@@ -5,7 +5,7 @@ Upstream develops on macOS and Linux and validates Windows in CI. This page reco
 ## One-time setup
 
 1. Enable Developer Mode and run `git config core.symlinks true` before cloning or repairing the checkout; see [FORK.md](../FORK.md#local-environment-prerequisites). CI enables Developer Mode the same way.
-2. Run `corepack enable` once, or prefix every command with `corepack` (`corepack pnpm install`). Without it, `pnpm` is not on `PATH` even though `package.json` pins `pnpm@11.28.5`. `corepack enable` writes shims next to the active `node.exe`: with a version manager such as fnm that needs no elevation, while a Node install under `Program Files` needs an elevated shell.
+2. Run `corepack enable` once, or prefix every command with `corepack` (`corepack pnpm install`). Without it, `pnpm` is not on `PATH` even though `package.json` pins `pnpm@11.28.5`, and `git push` fails because the Lefthook pre-push hook calls `pnpm` directly (`pnpm: command not found`). Do not skip the hook; `corepack enable --install-directory <dir> pnpm` with `<dir>` added to `PATH` also works without elevation. `corepack enable` writes shims next to the active `node.exe`: with a version manager such as fnm that needs no elevation, while a Node install under `Program Files` needs an elevated shell.
 3. Install PowerShell 7 (`pwsh`). The `dsh` shell tool uses it on Windows (see [Runtime defaults](#runtime-defaults-on-windows)); Windows PowerShell 5.1 is not a substitute.
 4. If git reports "Filename too long", run `git config --global core.longpaths true`. No upstream doc mentions it; worktrees under `.claude\worktrees\` lengthen every path.
 
@@ -33,7 +33,8 @@ Expected warnings: "Unsupported platform" for the `native/system/packages/{darwi
 | `pnpm install`, `pnpm run build:native-system` | Yes (checked) | |
 | `pnpm exec vitest run <path>` | Yes (checked: `packages/util`, 614 passed, 1 timed out) | A few Windows-only specs exceed vitest's 5 s default under parallel load; CI runs them with `--testTimeout 90000 --no-file-parallelism`. Re-run a timed-out spec alone before treating it as a regression |
 | `pnpm run test:docs` | Yes (checked: 21 gates, about 2 minutes) | `verify-repository-references` fails on upstream itself: its 7-40 hex-digit pattern also matches a decimal `size` value in `python/sdk/uv.lock` (line 113) that equals an upstream commit abbreviation. Ignore that one finding; any other finding is real |
-| `pnpm run build`, `typecheck`, `lint`, `doc-sync` | Expected yes: CI runs `build` and the static gates on Windows | Not run in the fork yet |
+| `typecheck` (the pre-push hook) | Yes (checked: 5 gates, about 4 minutes cold) | |
+| `pnpm run build`, `lint`, `doc-sync` | Expected yes: CI runs `build` and the static gates on Windows | Not run in the fork yet |
 | `pnpm run check:ci:windows-blocking` | Yes, it is the Windows CI gate | Runs `build` and `docs:build`; heavy |
 | `test:expected:refresh`, `test:snapshot:record`, `test:snapshot:refresh`, `test:web:refresh`, `test:web:perf:built` | No, from PowerShell or cmd | They set a `VAR=value` prefix that only POSIX shells understand. Run them from Git Bash, or set the variable with `$env:VAR = '…'` and call the underlying command |
 | `make <target>` | Only if GNU make is installed | Each target is `pnpm run <script>`; run the script directly instead |
